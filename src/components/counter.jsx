@@ -32,7 +32,7 @@ class Counter extends Component {
   };
   render() {
     return (
-      <React.Fragment>
+      <div>
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button
           onClick={this.handleIncrement}
@@ -40,9 +40,9 @@ class Counter extends Component {
         >
           Increment
         </button>
-        {this.state.tags.length === 0 && "Please create a new tag!"}
-        {this.renderTags()}
-      </React.Fragment>
+        {/* {this.state.tags.length === 0 && "Please create a new tag!"} */}
+        {/* {this.renderTags()} */}
+      </div>
     );
   }
   getBadgeClasses() {
