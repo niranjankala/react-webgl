@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import { timingSafeEqual } from "crypto";
-
 class Counter extends Component {
   state = {
     value: this.props.value,
