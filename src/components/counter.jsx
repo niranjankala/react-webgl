@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { timingSafeEqual } from "crypto";
 
 class Counter extends Component {
   state = {
@@ -30,23 +31,21 @@ class Counter extends Component {
     //Send single about the change.. angular automatically detects state change
     this.setState({ value: this.state.value + 1 });
   };
+
+
   render() {
     console.log(this.props);
     return (
       <div>
         {
           /*this.props.children*/
-          <h4>Counter #{this.props.id}</h4>
+          /* <h4>Counter #{this.props.id}</h4> */
         }
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        <button
-          onClick={this.handleIncrement}
-          className="btn btn-secondary btn-sm"
-        >
-          Increment
-        </button>
+        <button onClick={this.handleIncrement} className="btn btn-secondary btn-sm">Increment</button>
         {/* {this.state.tags.length === 0 && "Please create a new tag!"} */}
         {/* {this.renderTags()} */}
+        <button onClick={this.props.onDelete} className="btn btn-danger btn-sm m-2">Delete</button>
       </div>
     );
   }
