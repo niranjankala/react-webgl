@@ -1,10 +1,37 @@
 import React, { Component } from 'react';
-class App extends Component {
-    state = {}
+import { render } from "react-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+
+import ThreeOBJLoader from './threeobjloader';
+import BabylonOBJLoader from './babylonobjloader';
+import Home from './home';
+import SideBar from './sidebar';
+import './App.css';
+import NavBar from './navbar';
+
+class App extends React.Component {
     render() {
-        return (<div>
-            <h1>Home</h1>
-        </div>);
+        return (<Router>
+            <NavBar />
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-md-2 col-lg-2">
+                        <SideBar />
+                    </div>
+                    <div className="col-md-10 col-lg-10">
+                        <Switch>
+                            <Route path={"/"} component={Home} exact></Route>
+                            <Route path={"/threejsobjloader"} component={ThreeOBJLoader} />
+                            <Route path={"/babylonjsobjloader"} component={BabylonOBJLoader} />
+                            <Route path={"/home"} component={Home} />
+                        </Switch>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+        </Router>
+        );
     }
 }
 
