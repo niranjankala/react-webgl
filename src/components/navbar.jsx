@@ -8,7 +8,7 @@ class NavBar extends Component {
         return (
             <nav className="navbar navbar-expand-md bg-dark navbar-dark">
                 <Link to={"/home"} className="navbar-brand">
-                    <img src={logo} className="d-inline-block align-top App-logo" alt="logo" />
+                    <img src={logo} className="d-inline-block align-top App-logo" width="30" height="30" alt="logo" />
                     react-webgl
                 </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">

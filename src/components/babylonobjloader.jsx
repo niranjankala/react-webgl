@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as BABYLON from "babylonjs";
 import { Scene, Engine, Axis } from "babylonjs";
+import { SkyMaterial } from 'babylonjs-materials';
 import "babylonjs-loaders";
 import "babylonjs-gui";
 
@@ -20,17 +21,18 @@ class BabylonOBJLoader extends Component {
         });
         var createScene = () => {
             let scene = new BABYLON.Scene(this.engine);
+
             // Adding a light
             //let light = new BABYLON.PointLight('Omni', new BABYLON.Vector3(20, 20, 100), scene);
             let light = new BABYLON.PointLight(
-                "Omni",
+                'Omni',
                 new BABYLON.Vector3(20, 20, 100),
                 scene
             );
 
             // Adding an Arc Rotate Camera
             this.camera = new BABYLON.ArcRotateCamera(
-                "Camera",
+                'Camera',
                 BABYLON.Tools.ToRadians(90),
                 BABYLON.Tools.ToRadians(0),
                 80,
@@ -41,36 +43,46 @@ class BabylonOBJLoader extends Component {
 
             this.camera.attachControl(this.canvas, false);
 
-            //   let skybox = BABYLON.MeshBuilder.CreateBox(
-            //     "skyBox",
-            //     { size: 100.0 },
-            //     scene
-            //   );
-            //   let skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
-            //   skyboxMaterial.backFaceCulling = false;
-            //   skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(
-            //     "/assets/files/textures/skybox/skybox",
-            //     scene
-            //   );
-            //   skyboxMaterial.reflectionTexture.coordinatesMode =
-            //     BABYLON.Texture.SKYBOX_MODE;
-            //   skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-            //   skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-            //   skybox.material = skyboxMaterial;
             // Ground
             let ground = BABYLON.Mesh.CreateGround(
-                "ground",
+                'ground',
                 100,
                 100,
                 2,
                 scene,
                 false
             );
-            let groundMaterial = new BABYLON.StandardMaterial("ground", scene);
+            const groundMaterial = new BABYLON.StandardMaterial('ground', scene);
             groundMaterial.diffuseColor = BABYLON.Color3.Gray();
             groundMaterial.specularColor = BABYLON.Color3.Black();
-
             ground.material = groundMaterial;
+
+            // // Sky material
+            // let skyboxMaterial = new SkyMaterial("skyMaterial", scene);
+            // skyboxMaterial.backFaceCulling = false;
+            // //skyboxMaterial._cachedDefines.FOG = true;
+
+            // // Sky mesh (box)
+            // var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
+            // skybox.material = skyboxMaterial;
+
+            // Skybox
+            let skyboxMaterial = new SkyMaterial('sky', scene);
+            skyboxMaterial.inclination = -0.35;
+            var box = BABYLON.Mesh.CreateBox(
+                'SkyBox',
+                1000,
+                scene,
+                false,
+                BABYLON.Mesh.BACKSIDE
+            );
+            box.material = skyboxMaterial;
+
+            // Reflection probe
+            var rp = new BABYLON.ReflectionProbe('ref', 512, scene);
+            rp.renderList.push(box);
+            // End SkyBox
+
 
             // The first parameter can be used to specify which mesh to import. Here we import all meshes
             //BABYLON.SceneLoader.ImportMesh('', '/assets/models/', 'WaltHead.obj', scene, (newMeshes) => {
@@ -80,10 +92,10 @@ class BabylonOBJLoader extends Component {
                 "BLIS_SmallOfficeBldg.obj",
                 scene,
                 meshes => {
-                    scene.activeCamera = null;
+                    //scene.activeCamera = null;
                     // Create a default arc rotate camera and light.
-                    scene.createDefaultCameraOrLight(true, false, true);
-                    scene.activeCamera.attachControl(this.canvas, true);
+                    //scene.createDefaultCameraOrLight(true, false, true);
+                    //scene.activeCamera.attachControl(this.canvas, true);
                     this.camera = scene.activeCamera;
                     this.camera.beta = Math.PI / 2;
                     //this.camera.alpha = Math.PI ;
