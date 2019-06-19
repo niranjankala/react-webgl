@@ -21,27 +21,76 @@ class ThreeOBJLoader extends Component {
 
 
     }
+    createGrondPlane = (scene) => {
+
+        // var floor_geometry = new THREE.PlaneGeometry(1000, 1000);
+        // var floor_material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+        // var floor = new THREE.Mesh(floor_geometry, floor_material);
+        // floor.position.set(0, -2, 0);
+        // floor.rotation.x -= Math.PI / 2;
+        // floor.receiveShadow = true;
+        // floor.castShadow = false;
+        // scene.add(floor);
+
+        const groundMaterial = new THREE.MeshBasicMaterial({ color: 0x4C4A48 });
+        //const groundMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc });
+        // ground
+        let geometry = new THREE.PlaneGeometry(1000, 1000);
+        let ground = new THREE.Mesh(geometry, groundMaterial);
+        //ground.position.set(0, -1, 0);
+        ground.position.y = -.2;
+        ground.rotation.x = - Math.PI / 2;
+        //ground.rotation.x = -0.5 * Math.PI;
+
+        //groundMaterial.side = THREE.DoubleSide;
+        ground.receiveShadow = true;
+        scene.add(ground);
+    }
+
+    createGrid = (scene) => {
+        const grid = new THREE.GridHelper(1000, 500, 0x000000, 0x808080);
+        grid.position.y = -.1;
+        const gridMaterial = grid.material;
+        //gridMaterial.opacity = 0.2;
+        //gridMaterial.polygonOffset = true;
+        //gridMaterial.polygonOffsetFactor = -0.1;
+        //gridMaterial.transparent = true;
+        this.scene.add(grid);
+    }
+    createSky = (scene) => {
+        const urlPrefix = '/assets/files/textures/skybox/skybox_';
+        const urls = [urlPrefix + 'px.jpg', urlPrefix + 'nx.jpg',
+        urlPrefix + 'py.jpg', urlPrefix + 'ny.jpg',
+        urlPrefix + 'pz.jpg', urlPrefix + 'nz.jpg'];
+
+        let materialArray = [];
+        for (let index = 0; index < urls.length; index++) {
+            const textureFilePath = urls[index];
+
+            let texture = new THREE.TextureLoader().load(textureFilePath);
+            // immediately use the texture for material creation
+            let material = new THREE.MeshBasicMaterial({ map: texture });
+            material.side = THREE.BackSide;
+            materialArray.push(material);
+        }
+
+        let skyboxGeo = new THREE.BoxGeometry(1000, 1000, 1000);
+        let skybox = new THREE.Mesh(skyboxGeo, materialArray);
+        scene.add(skybox);
+    }
 
     createScene = () => {
         this.scene = new THREE.Scene();
-        this.scene.add(new THREE.AxesHelper(50));
-        this.scene.add(new THREE.GridHelper(5000, 500));
-        //var loader = new OBJLoader();
+        this.scene.background = new THREE.Color(0xffffff);
+        const axes = new THREE.AxesHelper(50);
+        axes.position.y = axes.position.y - .5;
+        this.scene.add(axes);
+        this.createGrondPlane(this.scene);
+        this.createGrid(this.scene);
 
-        // let mtlLoader = new MTLLoader();
-        // mtlLoader.setTexturePath('assets/model/');
-        // mtlLoader.setPath('assets/model/');
-        // mtlLoader.load('BLIS_SmallOfficeBldg.mtl', (materials) => {
-        //     materials.preload();
-        //     let objLoader = new OBJLoader();
-        //     objLoader.setMaterials(materials.getAsArray()   );
-        //     objLoader.setPath('/assets/model/');
-        //     objLoader.load('BLIS_SmallOfficeBldg.obj', (object) => {
-        //         this.scene.add(object);
-        //         object.position.y -= 60;
-        //         this.render();
-        //     });
-        // });
+        window['scene'] = this.scene;
+
+        this.createSky(this.scene);
         let mtlLoader = new MTLLoader();
         mtlLoader.load('./assets/files/models/BLIS_SmallOfficeBldg/BLIS_SmallOfficeBldg.mtl', this.onMTLLoadingCompleted);
         //loader.load('assets/model/BLIS_SmallOfficeBldg.obj', this.onModelLoadingCompleted);
