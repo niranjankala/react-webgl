@@ -11,7 +11,7 @@ class ThreeOBJLoader extends Component {
         super(props)
         this.fieldOfView = 45;
         this.nearClippingPane = .01;
-        this.farClippingPane = 200;
+        this.farClippingPane = 2000;
 
         this.start = this.start.bind(this)
         this.stop = this.stop.bind(this)

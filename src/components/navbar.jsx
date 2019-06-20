@@ -2,33 +2,43 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../logo.svg';
 
+
 class NavBar extends Component {
-    state = {}
+    state = {
+        pageText: this.props.pageText
+    };
     render() {
         return (
-            <nav className="navbar navbar-expand-md bg-dark navbar-dark">
-                <Link to={"/home"} className="navbar-brand">
-                    <img src={logo} className="d-inline-block align-top App-logo" width="30" height="30" alt="logo" />
-                    react-webgl
-                </Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="collapsibleNavbar">
-                    <ul className="navbar-nav">
-                        <li className="nav-item">
-                            <Link to={"/home"} className="nav-link">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/threejsobjloader"} className="nav-link">Load Threejs obj loader</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to={"/babylonjsobjloader"} className="nav-link">Load Babylon obj loader</Link>
-                        </li>
-                    </ul>
+            <div className="row bg-dark header-nav">
+                <div className="col-md-2 col-lg-2 header-brand">
+                    <Link to={"/home"}>
+                        <img src="/assets/images/logo.png" className="d-inline-block align-top App-logo" width="100%" height="100%"
+                            alt="logo" />
+                    </Link>
                 </div>
-            </nav>
+                <div className="col-md-6 col-lg-6">
+                    <span className="navbar-brand-text"> {this.props.title}</span>
+                </div>
+                <div className="col-md-4 col-lg-4">
+                    <table id="heder-table">
+                        <tbody>
+                            <tr>
+                                <td>Javascript Framework</td>
+                                <td>= React</td>
+                            </tr>
+                            <tr>
+                                <td>3D Framework</td>
+                                <td>={this.formatPageText()}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         );
+    }
+    formatPageText() {
+        const { pageText: navigatedPageText } = this.state;
+        return navigatedPageText === '' ? "" : navigatedPageText;
     }
 }
 

@@ -1,11 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Route, BrowserRouter as Router } from "react-router-dom";
+//import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+//import 'bootstrap/dist/css/bootstrap-theme.min.css' // optional
+//import 'jquery/dist/jquery.min.js'
+//import 'popper.js';
+//import 'bootstrap/dist/js/bootstrap.min.js'
 import "./index.css";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
-import "bootstrap/dist/css/bootstrap.css";
-
 import Counters from "./components/counters";
 import ThreeBoxScene from "./components/threeboxscene";
 import ThreeOBJLoader from "./components/threeobjloader";

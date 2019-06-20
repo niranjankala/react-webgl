@@ -13,8 +13,9 @@ import NavBar from './navbar';
 class App extends React.Component {
     render() {
         return (<Router>
-            <NavBar />
+            {/* <NavBar title="3D Demonstrator" pageTitle="" /> */}
             <div className="container-fluid">
+                <NavBar title="3D Demonstrator" pageTitle="" />
                 <div className="row">
                     <div className="col-md-2 col-lg-2">
                         <SideBar />
