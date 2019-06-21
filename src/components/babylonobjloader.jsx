@@ -42,7 +42,12 @@ class BabylonOBJLoader extends Component {
       this.camera.setTarget(new BABYLON.Vector3(20, 3, 4.5));
 
       this.camera.attachControl(this.canvas, false);
-      this.camera.inertia = .001;
+      this.camera.inertia = 0.01;
+      this.camera.panningInertia = 0;
+      this.camera.wheelPrecision = 3;
+      this.camera.panningSensibility =
+        (1 / (this.camera.radius * Math.tan(this.camera.fov / 2) * 2)) *
+        this.engine.getRenderHeight(true);
       this.createGridPlane(scene);
       this.createSky(scene);
 
@@ -64,7 +69,6 @@ class BabylonOBJLoader extends Component {
           //this.camera.alpha = Math.PI ;
 
           //this.camera.target = new BABYLON.Vector3(0, 0, 4.5);
-          this.camera.wheelPrecision = 10;
           this.camera.lowerBetaLimit = Math.PI / 3;
           this.camera.upperBetaLimit = Math.PI / 2;
           // this.camera.lowerAlphaLimit = Math.PI/2;
@@ -111,9 +115,9 @@ class BabylonOBJLoader extends Component {
     //   scene.resize();
     // });
   }
-  createGridPlane = (scene) => {
+  createGridPlane = scene => {
     const grid = BABYLON.Mesh.CreateGround(
-      'grid',
+      "grid",
       5000,
       5000,
       1000,
@@ -123,11 +127,11 @@ class BabylonOBJLoader extends Component {
     const groundGridMaterial = this.CreateGroundGridMaterial(scene);
     grid.material = groundGridMaterial;
     grid.position.y = -0.1;
-  }
-  CreateGroundGridMaterial = (scene) => {
-    const groundMaterial = new GridMaterial('grid', scene);
+  };
+  CreateGroundGridMaterial = scene => {
+    const groundMaterial = new GridMaterial("grid", scene);
     groundMaterial.gridRatio = 1;
-    groundMaterial.mainColor = new BABYLON.Color3(.296875, .2890625, .28125);
+    groundMaterial.mainColor = new BABYLON.Color3(0.296875, 0.2890625, 0.28125);
     groundMaterial.lineColor = BABYLON.Color3.White();
     //groundMaterial.opacity = .8;
 
@@ -136,10 +140,9 @@ class BabylonOBJLoader extends Component {
     //groundMaterial.alpha = .1;
     groundMaterial.backFaceCulling = true;
     return groundMaterial;
+  };
 
-  }
-
-  createSky = (scene) => {
+  createSky = scene => {
     //Standard texture material
 
     // // Sky material
@@ -153,15 +156,19 @@ class BabylonOBJLoader extends Component {
 
     // Skybox
     //let skyboxMaterial = new SkyMaterial('sky', scene);
-    //skyboxMaterial.inclination = -0.35;      
-    const skyboxMaterial = new BABYLON.StandardMaterial('skyBox', scene);
+    //skyboxMaterial.inclination = -0.35;
+    const skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
     skyboxMaterial.backFaceCulling = false;
-    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture('/assets/files/textures/skybox/skybox', scene);
-    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture(
+      "/assets/files/textures/skybox/skybox",
+      scene
+    );
+    skyboxMaterial.reflectionTexture.coordinatesMode =
+      BABYLON.Texture.SKYBOX_MODE;
     skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
     skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
     const box = BABYLON.Mesh.CreateBox(
-      'SkyBox',
+      "SkyBox",
       1000,
       scene,
       false,
@@ -170,21 +177,34 @@ class BabylonOBJLoader extends Component {
     box.material = skyboxMaterial;
 
     // Reflection probe
-    var rp = new BABYLON.ReflectionProbe('ref', 512, scene);
+    var rp = new BABYLON.ReflectionProbe("ref", 512, scene);
     rp.renderList.push(box);
     // End SkyBox
-  }
+  };
 
   /***************************************************************/
 
   // show axis
   showAxis = (size, scene) => {
-    var makeTextPlane = function (text, color, size) {
-      var dynamicTexture = new BABYLON.DynamicTexture('DynamicTexture', 50, scene, true);
+    var makeTextPlane = function(text, color, size) {
+      var dynamicTexture = new BABYLON.DynamicTexture(
+        "DynamicTexture",
+        50,
+        scene,
+        true
+      );
       dynamicTexture.hasAlpha = true;
-      dynamicTexture.drawText(text, 5, 40, 'bold 36px Arial', color, 'transparent', true);
-      var plane = BABYLON.Mesh.CreatePlane('TextPlane', size, scene, true);
-      let mat = new BABYLON.StandardMaterial('TextPlaneMaterial', scene);
+      dynamicTexture.drawText(
+        text,
+        5,
+        40,
+        "bold 36px Arial",
+        color,
+        "transparent",
+        true
+      );
+      var plane = BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
+      let mat = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
       plane.material = mat;
       mat.backFaceCulling = false;
       mat.specularColor = new BABYLON.Color3(0, 0, 0);
@@ -192,28 +212,49 @@ class BabylonOBJLoader extends Component {
       return plane;
     };
 
-    var axisX = BABYLON.Mesh.CreateLines('axisX', [
-      BABYLON.Vector3.Zero(), new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, 0.05 * size, 0),
-      new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, -0.05 * size, 0)
-    ], scene);
+    var axisX = BABYLON.Mesh.CreateLines(
+      "axisX",
+      [
+        BABYLON.Vector3.Zero(),
+        new BABYLON.Vector3(size, 0, 0),
+        new BABYLON.Vector3(size * 0.95, 0.05 * size, 0),
+        new BABYLON.Vector3(size, 0, 0),
+        new BABYLON.Vector3(size * 0.95, -0.05 * size, 0)
+      ],
+      scene
+    );
     axisX.color = new BABYLON.Color3(1, 0, 0);
-    var xChar = makeTextPlane('X', 'red', size / 10);
+    var xChar = makeTextPlane("X", "red", size / 10);
     xChar.position = new BABYLON.Vector3(0.9 * size, -0.05 * size, 0);
-    var axisY = BABYLON.Mesh.CreateLines('axisY', [
-      BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(-0.05 * size, size * 0.95, 0),
-      new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(0.05 * size, size * 0.95, 0)
-    ], scene);
+    var axisY = BABYLON.Mesh.CreateLines(
+      "axisY",
+      [
+        BABYLON.Vector3.Zero(),
+        new BABYLON.Vector3(0, size, 0),
+        new BABYLON.Vector3(-0.05 * size, size * 0.95, 0),
+        new BABYLON.Vector3(0, size, 0),
+        new BABYLON.Vector3(0.05 * size, size * 0.95, 0)
+      ],
+      scene
+    );
     axisY.color = new BABYLON.Color3(0, 1, 0);
-    var yChar = makeTextPlane('Y', 'green', size / 10);
+    var yChar = makeTextPlane("Y", "green", size / 10);
     yChar.position = new BABYLON.Vector3(0, 0.9 * size, -0.05 * size);
-    var axisZ = BABYLON.Mesh.CreateLines('axisZ', [
-      BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, -0.05 * size, size * 0.95),
-      new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, 0.05 * size, size * 0.95)
-    ], scene);
+    var axisZ = BABYLON.Mesh.CreateLines(
+      "axisZ",
+      [
+        BABYLON.Vector3.Zero(),
+        new BABYLON.Vector3(0, 0, size),
+        new BABYLON.Vector3(0, -0.05 * size, size * 0.95),
+        new BABYLON.Vector3(0, 0, size),
+        new BABYLON.Vector3(0, 0.05 * size, size * 0.95)
+      ],
+      scene
+    );
     axisZ.color = new BABYLON.Color3(0, 0, 1);
-    var zChar = makeTextPlane('Z', 'blue', size / 10);
+    var zChar = makeTextPlane("Z", "blue", size / 10);
     zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
-  }
+  };
 
   componentWillUnmount() {
     //this.stop();
