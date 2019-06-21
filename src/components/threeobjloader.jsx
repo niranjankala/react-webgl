@@ -81,12 +81,15 @@ class ThreeOBJLoader extends Component {
     scene.add(skybox);
   };
 
+  showAxis = (scene) => {
+    const axes = new THREE.AxesHelper(50);
+    axes.position.y = axes.position.y - .5;
+    this.scene.add(axes);
+  }
   createScene = () => {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xffffff);
-    const axes = new THREE.AxesHelper(50);
-    axes.position.y = axes.position.y - 0.5;
-    this.scene.add(axes);
+    //this.showAxis(this.scene);
     this.createGrondPlane(this.scene);
     this.createGrid(this.scene);
 

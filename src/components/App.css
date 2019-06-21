@@ -61,5 +61,6 @@
 ul.side-nav > li > a.nav-link {
   text-decoration: none !important;
   color: black !important;
-  font-size: 1.1rem !important;
+  font-size: 1.2rem !important;
+  font-weight: 500;
 }

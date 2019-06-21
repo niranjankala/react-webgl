@@ -93,7 +93,7 @@ class BabylonOBJLoader extends Component {
       scene.registerBeforeRender(() => {
         light.position = this.camera.position;
       });
-      this.showAxis(10, scene);
+      //this.showAxis(10, scene);
       // Return the created scene
       return scene;
     };
