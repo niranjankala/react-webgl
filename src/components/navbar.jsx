@@ -3,10 +3,8 @@ import { Link } from "react-router-dom";
 import logo from "../logo.svg";
 
 class NavBar extends Component {
-  state = {
-    pageText: this.props.pageText
-  };
   render() {
+    console.log(this.props)
     return (
       <div className="row bg-dark header-nav">
         <div className="col-md-2 col-lg-2 header-brand">
@@ -32,17 +30,13 @@ class NavBar extends Component {
               </tr>
               <tr>
                 <td>3D Framework</td>
-                <td>= {this.formatPageText()}</td>
+                <td>= {this.props.pageTitle}</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
     );
-  }
-  formatPageText() {
-    const { pageText: navigatedPageText } = this.state;
-    return navigatedPageText === "" ? "" : navigatedPageText;
   }
 }
 

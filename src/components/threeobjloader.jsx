@@ -168,6 +168,7 @@ class ThreeOBJLoader extends Component {
   };
 
   componentDidMount() {
+    this.props.getPageTitle('Three.js');
     //this.THREE = THREE
     this.createScene();
     this.createLight();
@@ -267,6 +268,7 @@ class ThreeOBJLoader extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <canvas
         style={{ width: "100%", height: "100%" }}

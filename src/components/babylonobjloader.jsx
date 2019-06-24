@@ -14,6 +14,7 @@ class BabylonOBJLoader extends Component {
   }
 
   componentDidMount() {
+    this.props.getPageTitle('Babylon.js');
     // this.canvas = document.getElementById('renderCanvas');
     this.engine = new BABYLON.Engine(this.canvas, true, {
       preserveDrawingBuffer: true,
@@ -186,7 +187,7 @@ class BabylonOBJLoader extends Component {
 
   // show axis
   showAxis = (size, scene) => {
-    var makeTextPlane = function(text, color, size) {
+    var makeTextPlane = function (text, color, size) {
       var dynamicTexture = new BABYLON.DynamicTexture(
         "DynamicTexture",
         50,
