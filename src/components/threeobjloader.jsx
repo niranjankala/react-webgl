@@ -4,11 +4,26 @@ import "../EnableThreeExamples";
 import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import * as Stats from 'stats.js';
 //OBJLoader(THREE);
 
 class ThreeOBJLoader extends Component {
+  modelfile = '';
+  state = {
+    modelfile: ''
+  };
+
+  GetCurrentModelFile = (props) => {
+    const {
+      params: { model },
+    } = props.match;
+
+    return model;
+  }
+
   constructor(props) {
     super(props);
+    this.modelfile = this.GetCurrentModelFile(props);
     this.fieldOfView = 45;
     this.nearClippingPane = 0.01;
     this.farClippingPane = 2000;
@@ -98,7 +113,7 @@ class ThreeOBJLoader extends Component {
     this.createSky(this.scene);
     let mtlLoader = new MTLLoader();
     mtlLoader.load(
-      "./assets/files/models/BLIS_SmallOfficeBldg/BLIS_SmallOfficeBldg.mtl",
+      '/assets/files/models/' + this.modelfile + '.mtl',
       this.onMTLLoadingCompleted
     );
     //loader.load('assets/model/BLIS_SmallOfficeBldg.obj', this.onModelLoadingCompleted);
@@ -109,7 +124,7 @@ class ThreeOBJLoader extends Component {
     var loader = new OBJLoader();
     loader.setMaterials(materials);
     loader.load(
-      "./assets/files/models/BLIS_SmallOfficeBldg/BLIS_SmallOfficeBldg.obj",
+      '/assets/files/models/' + this.modelfile + '.obj',
       this.onModelLoadingCompleted
     );
   }
@@ -129,7 +144,27 @@ class ThreeOBJLoader extends Component {
     this.directionalLight = new THREE.DirectionalLight(0xffeedd);
     this.directionalLight.position.set(0, 0, 1).normalize();
     this.scene.add(this.directionalLight);
+    // let dirLightHeper = new THREE.DirectionalLightHelper(this.directionalLight, 10);
+    // this.scene.add(dirLightHeper);
+    //this.createDirectionalLights();
   };
+  createDirectionalLights() {
+    var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
+    keyLight.position.set(-100, 0, 100);
+    var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 0.75);
+    fillLight.position.set(100, 0, 100);
+    var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    backLight.position.set(100, 0, -100).normalize();
+    this.scene.add(keyLight);
+    this.scene.add(fillLight);
+    this.scene.add(backLight);
+    let keyLightHeper = new THREE.DirectionalLightHelper(keyLight, 10);
+    this.scene.add(keyLightHeper);
+    let fillLightHeper = new THREE.DirectionalLightHelper(fillLight, 10);
+    this.scene.add(fillLightHeper);
+    let backLightHeper = new THREE.DirectionalLightHelper(backLight, 10);
+    this.scene.add(backLightHeper);
+  }
 
   createCamera = () => {
     let aspectRatio = this.getAspectRatio();
@@ -140,9 +175,12 @@ class ThreeOBJLoader extends Component {
       this.farClippingPane
     );
 
+
+
     var pointLight = new THREE.PointLight(0xffffff, 0.8);
-    pointLight.position.set(10, 10, 0);
+    pointLight.position.set(10, 10, 20);
     this.camera.add(pointLight);
+
     // Set position and look at
     this.camera.position.x = 0;
     this.camera.position.y = 20;
@@ -166,20 +204,57 @@ class ThreeOBJLoader extends Component {
     this.renderer.setPixelRatio(devicePixelRatio);
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
   };
+  addStats = () => {
+    // STATS
+    this.stats = new Stats();
+    //this.stats.dom.removeAttribute('style');
+    //this.stats.dom.setAttribute('class', 'perf-stats');
+    this.canvas.parentNode.appendChild(this.stats.dom);
+  }
 
   componentDidMount() {
     this.props.getPageTitle('Three.js');
+    window.addEventListener("resize", this.onResize);
     //this.THREE = THREE
     this.createScene();
     this.createLight();
     this.createCamera();
     this.startRendering();
     this.addControls();
+    this.addStats();
     this.start();
   }
   componentWillUnmount() {
     this.stop();
     //this.mount.removeChild(this.renderer.domElement)
+    window.removeEventListener("resize", this.onResize);
+  }
+  componentWillReceiveProps(nextProps) {
+    const {
+      params: { model },
+    } = nextProps.match;
+
+    if (this.modelfile === '')
+      this.setState({ modelfile: model });
+    if (this.modelfile !== '' && model !== this.modelfile) {
+      this.setState({ modelfile: model });
+      this.modelfile = model;
+      if (this.object !== undefined)
+        this.scene.remove(this.object);
+      let mtlLoader = new MTLLoader();
+      mtlLoader.load(
+        '/assets/files/models/' + this.modelfile + '.mtl',
+        this.onMTLLoadingCompleted
+      );
+      //this.forceUpdate();
+      //Perform some operation
+
+      //this.setState({someState: someValue });
+
+      //this.classMethod();
+
+    }
+
   }
   start = () => {
     if (!this.frameId) {
@@ -193,6 +268,7 @@ class ThreeOBJLoader extends Component {
     //this.cube.rotation.x += 0.01
     //this.cube.rotation.y += 0.01
     this.renderScene();
+    this.stats.update();
     this.frameId = window.requestAnimationFrame(this.animate);
   };
   renderScene = () => {
@@ -268,15 +344,18 @@ class ThreeOBJLoader extends Component {
   };
 
   render() {
+
     console.log(this.props);
     return (
-      <canvas
-        style={{ width: "100%", height: "100%" }}
-        onMouseDown={this.onMouseDown}
-        ref={canvas => {
-          this.canvas = canvas;
-        }}
-      />
+      <div className="canvas-container">
+        <canvas
+          style={{ width: "100%", height: "100%" }}
+          onMouseDown={this.onMouseDown}
+          ref={canvas => {
+            this.canvas = canvas;
+          }}
+        />
+      </div>
     );
   }
 }

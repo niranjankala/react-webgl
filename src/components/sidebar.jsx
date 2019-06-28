@@ -7,7 +7,20 @@ class SideBar extends Component {
         return (
             <ul className="side-nav">
                 <li><Link to={"/home"} className="nav-link" >Home</Link></li>
-                <li><Link to={"/threejsobjloader"} className="nav-link" >Load Three.js model</Link></li>
+                <li><a className="nav-link">Load Three.js model</a>
+                    <ul className="underheading">
+                        <li><Link to={"/threejsobjloader/BLIS_SmallOfficeBldg"} className="nav-link" >BLIS Small Office Bldg</Link></li>
+                        <li><Link to={"/threejsobjloader/c_rvt8_Condo_Complex"} className="nav-link" >Condo Complex</Link></li>
+                        <li><Link to={"/threejsobjloader/Institute-Var-2-IFC"} className="nav-link" >Institute Var 2 IFC</Link></li>
+                        <li><Link to={"/threejsobjloader/konstrukcja-zmiany"} className="nav-link" >konstrukcja-zmiany</Link></li>
+                        <li><Link to={"/threejsobjloader/MAG_ArkivenesHus"} className="nav-link" >MAG Arkivenes Hus</Link></li>
+                        <li><Link to={"/threejsobjloader/Hospital_Parking_Garage"} className="nav-link" >Hospital Parking Garage</Link></li>
+                        <li><Link to={"/threejsobjloader/STR_041117"} className="nav-link" >STR 041117</Link></li>
+                        <li><Link to={"/threejsobjloader/RIV_ArkivenesHus"} className="nav-link" >RIV Arkivenes Hus</Link></li>
+                    </ul>
+                </li>
+
+
                 <li><Link to={"/babylonjsobjloader"} className="nav-link"  >Load Babylon.js model</Link></li>
             </ul>
             // <div className="nav flex-column nav-pills" aria-orientation="vertical">

@@ -35,8 +35,8 @@ class App extends React.Component {
                     </div>
                     <div className="col-md-10 col-lg-10">
                         <Switch>
-                            <Route path={"/"} component={Home} exact></Route>
-                            <Route path={"/threejsobjloader"} render={(props) => <ThreeOBJLoader {...props} getPageTitle={this.getPageTitle} />} />
+                            <Route path={"/"} render={(props) => <Home {...props} getPageTitle={this.getPageTitle} />} exact></Route>
+                            <Route path={"/threejsobjloader/:model"} render={(props) => <ThreeOBJLoader {...props} getPageTitle={this.getPageTitle} />} />
                             <Route path={"/babylonjsobjloader"} render={(props) => <BabylonOBJLoader {...props} getPageTitle={this.getPageTitle} />} />
                             <Route path={"/home"} render={(props) => <Home {...props} getPageTitle={this.getPageTitle} />} />
                         </Switch>

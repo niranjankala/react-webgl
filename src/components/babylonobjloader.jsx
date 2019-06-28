@@ -56,7 +56,7 @@ class BabylonOBJLoader extends Component {
       //BABYLON.SceneLoader.ImportMesh('', '/assets/models/', 'WaltHead.obj', scene, (newMeshes) => {
       BABYLON.SceneLoader.ImportMesh(
         "",
-        "/assets/files/models/BLIS_SmallOfficeBldg/",
+        "/assets/files/models/",
         "BLIS_SmallOfficeBldg.obj",
         scene,
         meshes => {
