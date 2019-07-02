@@ -21,7 +21,7 @@ class NavBar extends Component {
         <div className="col-md-6 col-lg-6">
           <span className="navbar-brand-text"> {this.props.title}</span>
         </div>
-        <div className="col-md-4 col-lg-4 d-flex justify-content-end">
+        {/* <div className="col-md-4 col-lg-4 d-flex justify-content-end">
           <table id="heder-table">
             <tbody>
               <tr>
@@ -34,7 +34,7 @@ class NavBar extends Component {
               </tr>
             </tbody>
           </table>
-        </div>
+        </div> */}
       </div>
     );
   }

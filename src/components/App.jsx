@@ -28,7 +28,7 @@ class App extends React.Component {
         return (<Router>
             {/* <NavBar title="3D Demonstrator" pageTitle="" /> */}
             <div className="container-fluid">
-                <NavBar title="3D Demonstrator" pageTitle={this.state.pageTitle} />
+                <NavBar title="Pegasus BIM Manager & Repository Demonstrator" pageTitle={this.state.pageTitle} />
                 <div className="row">
                     <div className="col-md-2 col-lg-2">
                         <SideBar />

@@ -6,8 +6,16 @@ class SideBar extends Component {
     render() {
         return (
             <ul className="side-nav">
-                <li><Link to={"/home"} className="nav-link" >Home</Link></li>
-                <li><a className="nav-link">Load Three.js model</a>
+                <li><Link to={"/threejsobjloader/BLIS_SmallOfficeBldg"} className="nav-link" >Demonstration Outline</Link></li>
+                <li><Link to={"/home"} className="nav-link" >Create recidential building</Link></li>
+                <li><Link to={"/home"} className="nav-link" >Create parking building</Link></li>
+                <li><Link to={"/home"} className="nav-link" >Save project  & close</Link></li>
+                <li><Link to={"/home"} className="nav-link" >Open project from list</Link></li>
+                <li><Link to={"/home"} className="nav-link" >Edit building</Link></li>
+                <li><Link to={"/home"} className="nav-link" >Save project & close</Link></li>
+                <li><Link to={"/home"} className="nav-link" >Open project from list</Link></li>
+
+                {/* <li><a className="nav-link">Load Three.js model</a>
                     <ul className="underheading">
                         <li><Link to={"/threejsobjloader/BLIS_SmallOfficeBldg"} className="nav-link" >BLIS Small Office Bldg</Link></li>
                         <li><Link to={"/threejsobjloader/c_rvt8_Condo_Complex"} className="nav-link" >Condo Complex</Link></li>
@@ -18,10 +26,10 @@ class SideBar extends Component {
                         <li><Link to={"/threejsobjloader/STR_041117"} className="nav-link" >STR 041117</Link></li>
                         <li><Link to={"/threejsobjloader/RIV_ArkivenesHus"} className="nav-link" >RIV Arkivenes Hus</Link></li>
                     </ul>
-                </li>
+                </li> */}
 
 
-                <li><Link to={"/babylonjsobjloader"} className="nav-link"  >Load Babylon.js model</Link></li>
+                {/* <li><Link to={"/babylonjsobjloader"} className="nav-link"  >Load Babylon.js model</Link></li> */}
             </ul>
             // <div className="nav flex-column nav-pills" aria-orientation="vertical">
             //     <Link to={"/home"} className="nav-link" data-toggle="pill" >Home</Link>
