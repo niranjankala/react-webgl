@@ -9,14 +9,12 @@ class SideBar extends Component {
                 <li><Link to={"/home"} className="nav-link" >Home</Link></li>
                 <li><a className="nav-link">Load Three.js model</a>
                     <ul className="underheading">
-                        <li><Link to={"/threejsobjloader/BLIS_SmallOfficeBldg"} className="nav-link" >BLIS Small Office Bldg</Link></li>
-                        <li><Link to={"/threejsobjloader/c_rvt8_Condo_Complex"} className="nav-link" >Condo Complex</Link></li>
-                        <li><Link to={"/threejsobjloader/Institute-Var-2-IFC"} className="nav-link" >Institute Var 2 IFC</Link></li>
-                        <li><Link to={"/threejsobjloader/konstrukcja-zmiany"} className="nav-link" >konstrukcja-zmiany</Link></li>
-                        <li><Link to={"/threejsobjloader/MAG_ArkivenesHus"} className="nav-link" >MAG Arkivenes Hus</Link></li>
-                        <li><Link to={"/threejsobjloader/Hospital_Parking_Garage"} className="nav-link" >Hospital Parking Garage</Link></li>
-                        <li><Link to={"/threejsobjloader/STR_041117"} className="nav-link" >STR 041117</Link></li>
-                        <li><Link to={"/threejsobjloader/RIV_ArkivenesHus"} className="nav-link" >RIV Arkivenes Hus</Link></li>
+                        <li><Link to={"/threejsobjloader/BLIS_SmallOfficeBldg"} className="nav-link" >Model 1</Link></li>
+                        <li><Link to={"/threejsobjloader/c_rvt8_Condo_Complex"} className="nav-link" >Model 2</Link></li>
+                        <li><Link to={"/threejsobjloader/Institute-Var-2-IFC"} className="nav-link" >Model 3</Link></li>
+                        <li><Link to={"/threejsobjloader/konstrukcja-zmiany"} className="nav-link" >Model 4</Link></li>
+                        <li><Link to={"/threejsobjloader/STR_041117"} className="nav-link" >Model 5</Link></li>
+                        <li><Link to={"/threejsobjloader/simergy"} className="nav-link" >Simergy Model</Link></li>
                     </ul>
                 </li>
 
