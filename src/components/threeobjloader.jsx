@@ -221,7 +221,7 @@ class ThreeOBJLoader extends Component {
     this.createCamera();
     this.startRendering();
     this.addControls();
-    this.addStats();
+    //this.addStats();
     this.start();
   }
   componentWillUnmount() {
@@ -268,7 +268,7 @@ class ThreeOBJLoader extends Component {
     //this.cube.rotation.x += 0.01
     //this.cube.rotation.y += 0.01
     this.renderScene();
-    this.stats.update();
+    //this.stats.update();
     this.frameId = window.requestAnimationFrame(this.animate);
   };
   renderScene = () => {
