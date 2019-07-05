@@ -56,6 +56,67 @@ class ThreeOBJLoader extends Component {
 
     return (
       <div className="row">
+        <div className="col-sm-4">
+              <h3>2D BIM View</h3>
+              <div className="canvas-container" style={{height:'300px'}}>
+                <WorldMap hoverElement={this.state.hover} onHover={this.onHover} colorScale={colorScale} data={filteredAppdata} size={[this.state.screenWidth / 2, this.state.screenHeight / 2]} />
+              </div>
+              <div>
+                <h4>Selected Object Properties</h4>
+                <div className="row">
+                      <div className="col-sm-6"> Object Type</div>
+                      <div className="col-sm-6"> Building Site</div>
+                    </div>
+                    <div className="row">
+                      <div className="col-sm-6"> Area</div>
+                      <div className="col-sm-6"> 40,000 sq.ft.</div>
+                    </div>
+                    <div className="row">
+                      <div className="col-sm-6"> Perimeter</div>
+                      <div className="col-sm-6"> 800 ft.</div>
+                    </div>
+              </div>
+          </div>
+          
+          <div className="col">
+            <h3>3D BIM View</h3>
+            <div className="canvas-container" style={{height:'300px'}}>
+              <ThreeBimView props={this.props} />
+            </div>
+            <div>
+              <h4>Project Model Statistics</h4>
+                <div className="row">
+                  <div className="col-sm-6"> Stories</div>
+                  <div className="col-sm-6"> <span className="float-right">5</span></div>
+                </div>
+                <div className="row">
+                  <div className="col-sm-6"> Total Height</div>
+                  <div className="col-sm-6"> <span className="float-right">54 ft.</span></div>
+                </div>
+                <div className="row">
+                  <div className="col-sm-6"> Floor Area per story</div>
+                  <div className="col-sm-6"> <span className="float-right">10,800 sq.ft.</span></div>
+                </div>
+                <div className="row">
+                  <div className="col-sm-6"> Total Floor Area</div>
+                  <div className="col-sm-6">  <span className="float-right">54,000 sq.ft.</span></div>
+                </div>
+                <div className="row">
+                  <div className="col-sm-6"> Total Living Units</div>
+                  <div className="col-sm-6">  <span className="float-right">75</span></div>
+                </div>
+                <div className="row">
+                  <div className="col-sm-6"> Total Coridors</div>
+                  <div className="col-sm-6">  <span className="float-right">5</span></div>
+                </div>
+                <div className="row">
+                  <div className="col-sm-6"> Total Stair towers</div>
+                  <div className="col-sm-6"> <span className="float-right">10</span></div>
+                </div>
+            </div>
+            
+          </div>
+
           <div className="col dataModelTree">
              <h3>Data Model Tree</h3>
               <ul >
@@ -108,65 +169,7 @@ class ThreeOBJLoader extends Component {
                   </li>
               </ul>
           </div>
-          <div className="col">
-            <h3>3D BIM View</h3>
-            <div className="canvas-container" style={{height:'300px'}}>
-              <ThreeBimView props={this.props} />
-            </div>
-            <div>
-              <h4>Project Model Statistics</h4>
-                <div className="row">
-                  <div className="col-sm-6"> Stories</div>
-                  <div className="col-sm-6"> <span className="float-right">5</span></div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-6"> Total Height</div>
-                  <div className="col-sm-6"> <span className="float-right">54 ft.</span></div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-6"> Floor Area per story</div>
-                  <div className="col-sm-6"> <span className="float-right">10,800 sq.ft.</span></div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-6"> Total Floor Area</div>
-                  <div className="col-sm-6">  <span className="float-right">54,000 sq.ft.</span></div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-6"> Total Living Units</div>
-                  <div className="col-sm-6">  <span className="float-right">75</span></div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-6"> Total Coridors</div>
-                  <div className="col-sm-6">  <span className="float-right">5</span></div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-6"> Total Stair towers</div>
-                  <div className="col-sm-6"> <span className="float-right">10</span></div>
-                </div>
-            </div>
-            
-          </div>
-          <div className="col-sm-4">
-          <h3>2D BIM View</h3>
-          <div className="canvas-container" style={{height:'300px'}}>
-            <WorldMap hoverElement={this.state.hover} onHover={this.onHover} colorScale={colorScale} data={filteredAppdata} size={[this.state.screenWidth / 2, this.state.screenHeight / 2]} />
-          </div>
-          <div>
-            <h4>Selected Object Properties</h4>
-            <div className="row">
-                  <div className="col-sm-6"> Object Type</div>
-                  <div className="col-sm-6"> Building Site</div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-6"> Area</div>
-                  <div className="col-sm-6"> 40,000 sq.ft.</div>
-                </div>
-                <div className="row">
-                  <div className="col-sm-6"> Perimeter</div>
-                  <div className="col-sm-6"> 800 ft.</div>
-                </div>
-          </div>
-          </div>
+          
         </div>
       
     );
