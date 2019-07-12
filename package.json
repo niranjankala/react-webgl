@@ -17,6 +17,7 @@
     "google-maps-api": "^2.0.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
+    "raphael": "^2.2.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
