@@ -57,7 +57,7 @@
   font-size: 1.5rem !important;
 }
 .side-nav {
-  list-style: none;
+  /* list-style: none; */
   padding-left: 0px !important;
 }
 ul.side-nav > li > a.nav-link {

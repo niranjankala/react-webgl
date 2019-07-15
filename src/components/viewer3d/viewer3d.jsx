@@ -210,7 +210,7 @@ class Viewer3D extends Component {
         this.stats = new Stats();
         //this.stats.dom.removeAttribute('style');
         //this.stats.dom.setAttribute('class', 'perf-stats');
-        this.canvas.parentNode.appendChild(this.stats.dom);
+        //this.canvas.parentNode.appendChild(this.stats.dom);
     }
 
     componentDidMount() {
