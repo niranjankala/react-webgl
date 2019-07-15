@@ -8,7 +8,7 @@ export class NodeService {
     }
 
     getTreeNodes() {
-        return axios.get('showcase/resources/demo/data/treenodes.json')
+        return axios.get('/data/treenodes.json')
             .then(res => res.data.root);
     }
 }

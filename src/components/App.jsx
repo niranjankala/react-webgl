@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ThreeOBJLoader from './threeobjloader';
 import BabylonOBJLoader from './babylonobjloader';
 import Home from './home';
-import SideBar from './sidebar';
+import SideBar from './sidebar/sidebar';
 import './App.css';
 import NavBar from './navbar';
 import ModelEditor from './model-editor/model-editor';

@@ -56,8 +56,21 @@
 #heder-table {
   font-size: 1.5rem !important;
 }
+
+pl-0 {
+  padding-left: 0 !important;
+}
+pr-0 {
+  padding-right: 0 !important;
+}
+
+/* Side Nav Bar */
+
+.side-nav-container {
+  border: 1px solid #c8c8c8;
+}
 .side-nav {
-  /* list-style: none; */
+  list-style: none;
   padding-left: 0px !important;
 }
 ul.side-nav > li > a.nav-link {
@@ -80,8 +93,12 @@ ul.underheading li > a.nav-link {
   font-weight: 500;
 }
 
+/* Side Nav Bar End*/
+
+/* Model Editor Begin*/
 div.canvas-container {
   position: relative;
+  height: 50vh;
 }
 div.canvas-container > div {
   position: absolute !important;
@@ -90,3 +107,4 @@ div.canvas-container > div {
   width: 100% !important;
   height: 100% !important;
 } */
+/* Model Editor End */

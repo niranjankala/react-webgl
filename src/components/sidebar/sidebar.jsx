@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-
+import './sidebar.scss';
 class SideBar extends Component {
     state = {}
     render() {
         return (
-            <div>
+            <div className="side-nav-container">
                 <h4>Demonstration Outline</h4>
                 <ul className="side-nav">
-                    <li><Link to={"/modeleditor/BLIS_SmallOfficeBldg"} className="nav-link" >Create recidential building</Link></li>
-                    <li><Link to={"/home"} className="nav-link" >Create parking building</Link></li>
-                    <li><Link to={"/home"} className="nav-link" >Save project  & close</Link></li>
-                    <li><Link to={"/home"} className="nav-link" >Open project from list</Link></li>
-                    <li><Link to={"/home"} className="nav-link" >Edit building</Link></li>
-                    <li><Link to={"/home"} className="nav-link" >Save project & close</Link></li>
-                    <li><Link to={"/home"} className="nav-link" >Open project from list</Link></li>
+                    <li><Link to={"/modeleditor/BLIS_SmallOfficeBldg"} className="nav-link" >1) Create new project</Link></li>
+                    <li><Link to={"/modeleditor"} className="nav-link" >2) Create recidential building</Link></li>
+                    <li><Link to={"/modeleditor"} className="nav-link" >3) Create parking building</Link></li>
+                    <li><Link to={"/home"} className="nav-link" >4) Save project  & close</Link></li>
+                    <li><Link to={"/home"} className="nav-link" >5) Open this saved project</Link></li>
+                    <li><Link to={"/home"} className="nav-link" >6) Edit building (make L-shape)</Link></li>
+                    <li><Link to={"/home"} className="nav-link" >7) Save project & close</Link></li>
+                    <li><Link to={"/home"} className="nav-link" >8) Open the saved project</Link></li>
+                    <li><Link to={"/home"} className="nav-link" >9) Import Revit smart Unit model</Link></li>
+                    <li><Link to={"/home"} className="nav-link" >10) Export BIM from (7)</Link></li>
+                    <li><Link to={"/home"} className="nav-link" >11) Import IFC model to Revit</Link></li>
 
                     {/* <li><a className="nav-link">Load Three.js model</a>
                     <ul className="underheading">
