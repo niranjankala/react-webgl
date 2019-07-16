@@ -3,6 +3,7 @@ import Viewer2D from '../viewer2d/viewer2d';
 import Viewer3D from '../viewer3d/viewer3d';
 import ModelTree from '../model-tree/model-tree';
 import './model-editor.css';
+import ModelConfiguration from './model-configuration/model-cofiguration';
 class ModelEditor extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +23,11 @@ class ModelEditor extends Component {
                             <div className="canvas-container">
                                 <Viewer3D props={this.props} />
                             </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-12">
+                            <ModelConfiguration props={this.props} />
                         </div>
                     </div>
                 </div>
