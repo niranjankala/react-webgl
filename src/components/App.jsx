@@ -25,7 +25,7 @@ class App extends React.Component {
 
     render() {
         console.log(this.state);
-        return (<Router>
+        return (<Router basename={process.env.PUBLIC_URL}>
             {/* <NavBar title="3D Demonstrator" pageTitle="" /> */}
             <div className="container-fluid">
                 <NavBar title="3D Demonstrator" pageTitle={this.state.pageTitle} />

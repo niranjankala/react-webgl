@@ -70,7 +70,7 @@ class ThreeOBJLoader extends Component {
     this.scene.add(grid);
   };
   createSky = scene => {
-    const urlPrefix = "/assets/files/textures/skybox/skybox_";
+    const urlPrefix = `${process.env.PUBLIC_URL}/assets/files/textures/skybox/skybox_`;
     const urls = [
       urlPrefix + "px.jpg",
       urlPrefix + "nx.jpg",
@@ -113,7 +113,7 @@ class ThreeOBJLoader extends Component {
     this.createSky(this.scene);
     let mtlLoader = new MTLLoader();
     mtlLoader.load(
-      '/assets/files/models/' + this.modelfile + '.mtl',
+      `${process.env.PUBLIC_URL}/assets/files/models/` + this.modelfile + '.mtl',
       this.onMTLLoadingCompleted
     );
     //loader.load('assets/model/BLIS_SmallOfficeBldg.obj', this.onModelLoadingCompleted);
@@ -124,7 +124,7 @@ class ThreeOBJLoader extends Component {
     var loader = new OBJLoader();
     loader.setMaterials(materials);
     loader.load(
-      '/assets/files/models/' + this.modelfile + '.obj',
+      `${process.env.PUBLIC_URL}/assets/files/models/` + this.modelfile + '.obj',
       this.onModelLoadingCompleted
     );
   }
@@ -243,7 +243,7 @@ class ThreeOBJLoader extends Component {
         this.scene.remove(this.object);
       let mtlLoader = new MTLLoader();
       mtlLoader.load(
-        '/assets/files/models/' + this.modelfile + '.mtl',
+        `${process.env.PUBLIC_URL}/assets/files/models/` + this.modelfile + '.mtl',
         this.onMTLLoadingCompleted
       );
       //this.forceUpdate();

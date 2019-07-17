@@ -10,7 +10,7 @@ class NavBar extends Component {
         <div className="col-md-2 col-lg-2 header-brand">
           <Link to={"/home"}>
             <img
-              src="/assets/images/logo.png"
+              src={`${process.env.PUBLIC_URL}/assets/images/logo.png`}
               className="d-inline-block align-top App-logo"
               width="100%"
               height="100%"
