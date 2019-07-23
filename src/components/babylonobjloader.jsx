@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import * as BABYLON from "babylonjs";
-import { Scene, Engine, Axis } from "babylonjs";
-import { SkyMaterial, GridMaterial } from "babylonjs-materials";
+import { GridMaterial } from "babylonjs-materials";
 import "babylonjs-loaders";
 import "babylonjs-gui";
 
@@ -24,7 +23,6 @@ class BabylonOBJLoader extends Component {
       let scene = new BABYLON.Scene(this.engine);
 
       // Adding a light
-      //let light = new BABYLON.PointLight('Omni', new BABYLON.Vector3(20, 20, 100), scene);
       let light = new BABYLON.PointLight(
         "Omni",
         new BABYLON.Vector3(20, 20, 100),
@@ -116,6 +114,7 @@ class BabylonOBJLoader extends Component {
     //   scene.resize();
     // });
   }
+
   createGridPlane = scene => {
     const grid = BABYLON.Mesh.CreateGround(
       "grid",
@@ -129,6 +128,7 @@ class BabylonOBJLoader extends Component {
     grid.material = groundGridMaterial;
     grid.position.y = -0.1;
   };
+  
   CreateGroundGridMaterial = scene => {
     const groundMaterial = new GridMaterial("grid", scene);
     groundMaterial.gridRatio = 1;

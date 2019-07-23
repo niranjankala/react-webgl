@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import logo from "../logo.svg";
 
 class NavBar extends Component {
+
   render() {
-    console.log(this.props)
+    
     return (
       <div className="row bg-dark header-nav">
         <div className="col-md-2 col-lg-2 header-brand">

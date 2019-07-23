@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as THREE from 'three';
+
 class ThreeBoxScene extends Component {
     componentDidMount() {
         const width = this.mount.clientWidth
@@ -56,4 +57,5 @@ class ThreeBoxScene extends Component {
         )
     }
 }
+
 export default ThreeBoxScene

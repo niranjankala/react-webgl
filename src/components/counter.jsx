@@ -3,14 +3,7 @@ class Counter extends Component {
   state = {
     value: this.props.value,
     tags: ["tag1", "tag2", "tag3"]
-    //tags: []
   };
-
-  // constructor() {
-  //   super();
-  //   //to make this reference the compoent on event calls
-  //   this.handleIncrement = this.handleIncrement.bind(this);
-  // }
 
   renderTags() {
     if (this.state.tags.length === 0) return <p>There are no tags!</p>;
@@ -22,6 +15,7 @@ class Counter extends Component {
       </ul>
     );
   }
+
   //handleIncrement() {
   // Another way is to change this function to arrow function rather
   //  binding this on constructor
@@ -30,23 +24,16 @@ class Counter extends Component {
     this.setState({ value: this.state.value + 1 });
   };
 
-
   render() {
-    console.log(this.props);
     return (
       <div>
-        {
-          /*this.props.children*/
-          /* <h4>Counter #{this.props.id}</h4> */
-        }
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button onClick={this.handleIncrement} className="btn btn-secondary btn-sm">Increment</button>
-        {/* {this.state.tags.length === 0 && "Please create a new tag!"} */}
-        {/* {this.renderTags()} */}
         <button onClick={this.props.onDelete} className="btn btn-danger btn-sm m-2">Delete</button>
       </div>
     );
   }
+  
   getBadgeClasses() {
     let classes = "badge m-2 ";
     classes += this.state.value === 0 ? "badge-warning" : "badge-primary";

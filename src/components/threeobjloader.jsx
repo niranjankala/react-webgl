@@ -5,7 +5,6 @@ import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader.js";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import * as Stats from 'stats.js';
-//OBJLoader(THREE);
 
 class ThreeOBJLoader extends Component {
   modelfile = '';
@@ -34,18 +33,9 @@ class ThreeOBJLoader extends Component {
     this.onModelLoadingCompleted = this.onModelLoadingCompleted.bind(this);
     this.onMTLLoadingCompleted = this.onMTLLoadingCompleted.bind(this);
   }
+  
   createGrondPlane = scene => {
-    // var floor_geometry = new THREE.PlaneGeometry(1000, 1000);
-    // var floor_material = new THREE.MeshPhongMaterial({ color: 0xffffff });
-    // var floor = new THREE.Mesh(floor_geometry, floor_material);
-    // floor.position.set(0, -2, 0);
-    // floor.rotation.x -= Math.PI / 2;
-    // floor.receiveShadow = true;
-    // floor.castShadow = false;
-    // scene.add(floor);
-
     const groundMaterial = new THREE.MeshBasicMaterial({ color: 0x4c4a48 });
-    //const groundMaterial = new THREE.MeshBasicMaterial({ color: 0xcccccc });
     // ground
     let geometry = new THREE.PlaneGeometry(1000, 1000);
     let ground = new THREE.Mesh(geometry, groundMaterial);
@@ -69,6 +59,7 @@ class ThreeOBJLoader extends Component {
     //gridMaterial.transparent = true;
     this.scene.add(grid);
   };
+
   createSky = scene => {
     const urlPrefix = `${process.env.PUBLIC_URL}/assets/files/textures/skybox/skybox_`;
     const urls = [
@@ -101,6 +92,7 @@ class ThreeOBJLoader extends Component {
     axes.position.y = axes.position.y - .5;
     this.scene.add(axes);
   }
+
   createScene = () => {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0xffffff);
@@ -130,7 +122,6 @@ class ThreeOBJLoader extends Component {
   }
 
   onModelLoadingCompleted(collada) {
-    //collada.position.y = -95;
     this.object = collada;
     collada.rotation.x = -Math.PI / 2;
     this.scene.add(collada);
@@ -148,6 +139,7 @@ class ThreeOBJLoader extends Component {
     // this.scene.add(dirLightHeper);
     //this.createDirectionalLights();
   };
+
   createDirectionalLights() {
     var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
     keyLight.position.set(-100, 0, 100);
@@ -174,9 +166,6 @@ class ThreeOBJLoader extends Component {
       this.nearClippingPane,
       this.farClippingPane
     );
-
-
-
     var pointLight = new THREE.PointLight(0xffffff, 0.8);
     pointLight.position.set(10, 10, 20);
     this.camera.add(pointLight);
@@ -204,6 +193,7 @@ class ThreeOBJLoader extends Component {
     this.renderer.setPixelRatio(devicePixelRatio);
     this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight);
   };
+
   addStats = () => {
     // STATS
     this.stats = new Stats();
@@ -224,11 +214,13 @@ class ThreeOBJLoader extends Component {
     //this.addStats();
     this.start();
   }
+
   componentWillUnmount() {
     this.stop();
     //this.mount.removeChild(this.renderer.domElement)
     window.removeEventListener("resize", this.onResize);
   }
+
   componentWillReceiveProps(nextProps) {
     const {
       params: { model },
@@ -256,14 +248,17 @@ class ThreeOBJLoader extends Component {
     }
 
   }
+
   start = () => {
     if (!this.frameId) {
       this.frameId = requestAnimationFrame(this.animate);
     }
   };
+
   stop = () => {
     cancelAnimationFrame(this.frameId);
   };
+
   animate = () => {
     //this.cube.rotation.x += 0.01
     //this.cube.rotation.y += 0.01
@@ -271,6 +266,7 @@ class ThreeOBJLoader extends Component {
     //this.stats.update();
     this.frameId = window.requestAnimationFrame(this.animate);
   };
+
   renderScene = () => {
     this.directionalLight.position.copy(this.camera.position);
     this.renderer.render(this.scene, this.camera);
@@ -344,8 +340,6 @@ class ThreeOBJLoader extends Component {
   };
 
   render() {
-
-    console.log(this.props);
     return (
       <div className="canvas-container">
         <canvas

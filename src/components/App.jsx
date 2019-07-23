@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { render } from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
 
 import ThreeOBJLoader from './threeobjloader';
 import BabylonOBJLoader from './babylonobjloader';
@@ -24,9 +22,7 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         return (<Router basename={process.env.PUBLIC_URL}>
-            {/* <NavBar title="3D Demonstrator" pageTitle="" /> */}
             <div className="container-fluid">
                 <NavBar title="3D Demonstrator" pageTitle={this.state.pageTitle} />
                 <div className="row">
