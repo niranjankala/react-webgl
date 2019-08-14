@@ -18,7 +18,7 @@
     "stats.js": "^0.17.0",
     "three": "^0.105.2"
   },
-  "homepage": "https://azppweb-d1.projpegasus.com/pegasus-3d-demonstrator",
+  "homepage": "https://azppweb-d1.projpegasus.com/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

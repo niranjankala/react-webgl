@@ -5,15 +5,88 @@ import "babylonjs-loaders";
 import "babylonjs-gui";
 
 class BabylonOBJLoader extends Component {
+  modelfile = '';
+  state = {
+    modelfile: ''
+  };
+
+  GetCurrentModelFile = (props) => {
+    const {
+      params: { model },
+    } = props.match;
+
+    return model;
+  }
   constructor(props) {
     super(props);
+    this.modelfile = this.GetCurrentModelFile(props);
     this.fieldOfView = 45;
     this.nearClippingPane = 0.01;
     this.farClippingPane = 200;
+    this.importedMeshes = [];
   }
 
   componentDidMount() {
     this.props.getPageTitle('Babylon.js');
+    this.initialize();
+    this.loadModal(this.modelfile);
+
+  }
+
+
+  loadModal(modelfileName) {
+
+    if (this.importedMeshes)
+      this.importedMeshes.forEach(m => m.dispose(false, true));
+    if (!modelfileName)
+      return;
+
+    // The first parameter can be used to specify which mesh to import. Here we import all meshes
+    //BABYLON.SceneLoader.ImportMesh('', '/assets/models/', 'WaltHead.obj', scene, (newMeshes) => {
+    BABYLON.SceneLoader.ImportMesh(
+      "",
+      "/assets/files/models/",
+      `${modelfileName}.obj`,
+      this.scene,
+      meshes => {
+        this.importedMeshes = meshes;
+        meshes.forEach(m => (m.rotation.x = -Math.PI / 2));
+        //scene.activeCamera = null;
+        // Create a default arc rotate camera and light.
+        //scene.createDefaultCameraOrLight(true, false, true);
+        //scene.activeCamera.attachControl(this.canvas, true);
+        this.camera = this.scene.activeCamera;
+        this.camera.beta = Math.PI / 2;
+        //this.camera.alpha = Math.PI ;
+
+        //this.camera.target = new BABYLON.Vector3(0, 0, 4.5);
+        this.camera.lowerBetaLimit = Math.PI / 3;
+        this.camera.upperBetaLimit = Math.PI / 2;
+        // this.camera.lowerAlphaLimit = Math.PI/2;
+        // this.camera.upperAlphaLimit = Math.PI / 2;
+        //this.camera.allowUpsideDown = false;
+        //this.camera.position=(new BABYLON.Vector3(5,10,-75  ));
+        //this.camera.upVector = (new BABYLON.Vector3(0, 0, 1));
+        //console.log(this.camera.wheelPrecision);
+        console.log("camera target: " + this.camera.target);
+        console.log(this.camera.allowUpsideDown);
+        console.log("camera position: " + this.camera.position);
+        console.log("camera upVector: " + this.camera.upVector);
+
+        // Positions the camera overwriting alpha, beta, radius
+        //this.camera.setPosition(this.camera.position.multiply(new BABYLON.Vector3(-1, -1, -1)));
+
+        //this.camera.upVector =new BABYLON.Vector3(this.camera.position.x, this.camera.position.y +5, this.camera.position.z);
+        //this.camera.beta = Math.PI;
+        this.camera.alpha = Math.PI / 2;
+        this.light = this.scene.lights[0];
+        this.light.position = this.camera.position;
+      }
+    );
+
+  }
+
+  initialize = () => {
     // this.canvas = document.getElementById('renderCanvas');
     this.engine = new BABYLON.Engine(this.canvas, true, {
       preserveDrawingBuffer: true,
@@ -23,79 +96,48 @@ class BabylonOBJLoader extends Component {
       let scene = new BABYLON.Scene(this.engine);
 
       // Adding a light
-      let light = new BABYLON.PointLight(
-        "Omni",
+      //let light = new BABYLON.PointLight('Omni', new BABYLON.Vector3(20, 20, 100), scene);
+      this.light = new BABYLON.PointLight(
+        'Omni',
         new BABYLON.Vector3(20, 20, 100),
         scene
       );
 
       // Adding an Arc Rotate Camera
       this.camera = new BABYLON.ArcRotateCamera(
-        "Camera",
+        'Camera',
         BABYLON.Tools.ToRadians(90),
         BABYLON.Tools.ToRadians(0),
         80,
         new BABYLON.Vector3(0, 0, 0),
         scene
       );
+      this.camera.mode = BABYLON.Camera.PERSPECTIVE_CAMERA;
       this.camera.setTarget(new BABYLON.Vector3(20, 3, 4.5));
 
       this.camera.attachControl(this.canvas, false);
       this.camera.inertia = 0.01;
       this.camera.panningInertia = 0;
-      this.camera.wheelPrecision = 3;
+      //this.camera.wheelPrecision = 3;
       this.camera.panningSensibility =
         (1 / (this.camera.radius * Math.tan(this.camera.fov / 2) * 2)) *
         this.engine.getRenderHeight(true);
+      this.camera.beta = Math.PI / 2;
+      this.camera.alpha = Math.PI / 2;
+      this.light.position = this.camera.position;
       this.createGridPlane(scene);
+      //this.createTerrainGround(scene);
+      //this.createGrassGround(scene);
+      //this.createTexturedGround(scene);
+      //this.createGround(scene);
       this.createSky(scene);
 
-      // The first parameter can be used to specify which mesh to import. Here we import all meshes
-      //BABYLON.SceneLoader.ImportMesh('', '/assets/models/', 'WaltHead.obj', scene, (newMeshes) => {
-      BABYLON.SceneLoader.ImportMesh(
-        "",
-        "/assets/files/models/",
-        "BLIS_SmallOfficeBldg.obj",
-        scene,
-        meshes => {
-          meshes.forEach(m => (m.rotation.x = -Math.PI / 2));
-          //scene.activeCamera = null;
-          // Create a default arc rotate camera and light.
-          //scene.createDefaultCameraOrLight(true, false, true);
-          //scene.activeCamera.attachControl(this.canvas, true);
-          this.camera = scene.activeCamera;
-          this.camera.beta = Math.PI / 2;
-          //this.camera.alpha = Math.PI ;
-
-          //this.camera.target = new BABYLON.Vector3(0, 0, 4.5);
-          this.camera.lowerBetaLimit = Math.PI / 3;
-          this.camera.upperBetaLimit = Math.PI / 2;
-          // this.camera.lowerAlphaLimit = Math.PI/2;
-          // this.camera.upperAlphaLimit = Math.PI / 2;
-          //this.camera.allowUpsideDown = false;
-          //this.camera.position=(new BABYLON.Vector3(5,10,-75  ));
-          //this.camera.upVector = (new BABYLON.Vector3(0, 0, 1));
-          //console.log(this.camera.wheelPrecision);
-          console.log("camera target: " + this.camera.target);
-          console.log(this.camera.allowUpsideDown);
-          console.log("camera position: " + this.camera.position);
-          console.log("camera upVector: " + this.camera.upVector);
-
-          // Positions the camera overwriting alpha, beta, radius
-          //this.camera.setPosition(this.camera.position.multiply(new BABYLON.Vector3(-1, -1, -1)));
-
-          //this.camera.upVector =new BABYLON.Vector3(this.camera.position.x, this.camera.position.y +5, this.camera.position.z);
-          //this.camera.beta = Math.PI;
-          this.camera.alpha = Math.PI / 2;
-          light = scene.lights[0];
-          light.position = this.camera.position;
-        }
-      );
 
       // Move the light with the camera
       scene.registerBeforeRender(() => {
-        light.position = this.camera.position;
+        this.light.position = this.camera.position;
       });
+
       //this.showAxis(10, scene);
       // Return the created scene
       return scene;
@@ -109,7 +151,6 @@ class BabylonOBJLoader extends Component {
       //console.log('beta - ' + this.camera.beta);
       //console.log('alpha - ' + this.camera.alpha);
     });
-
     // window.addEventListener('resize', function () {
     //   scene.resize();
     // });
@@ -128,7 +169,7 @@ class BabylonOBJLoader extends Component {
     grid.material = groundGridMaterial;
     grid.position.y = -0.1;
   };
-  
+
   CreateGroundGridMaterial = scene => {
     const groundMaterial = new GridMaterial("grid", scene);
     groundMaterial.gridRatio = 1;
@@ -262,6 +303,26 @@ class BabylonOBJLoader extends Component {
     //this.mount.removeChild(this.renderer.domElement)
   }
 
+
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      params: { model },
+    } = nextProps.match;
+
+    if (this.modelfile === '')
+      this.setState({ modelfile: model });
+    if (this.modelfile !== '' && model !== this.modelfile) {
+      this.setState({ modelfile: model });
+      this.modelfile = model;
+      if (this.importedMeshes) {
+        this.importedMeshes.forEach(m => m.dispose(false, true));
+      }
+
+      this.loadModal(this.modelfile);
+
+    }
+  }
   /* EVENTS */
 
   onMouseDown = event => {

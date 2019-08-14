@@ -5,6 +5,7 @@ import ThreeOBJLoader from './threeobjloader';
 import BabylonOBJLoader from './babylonobjloader';
 import Home from './home';
 import SideBar from './sidebar';
+import SideBarBabylon from './sidebar_babylon';
 import './App.css';
 import NavBar from './navbar';
 
@@ -27,13 +28,13 @@ class App extends React.Component {
                 <NavBar title="3D Demonstrator" pageTitle={this.state.pageTitle} />
                 <div className="row">
                     <div className="col-md-2 col-lg-2">
-                        <SideBar />
+                        <SideBarBabylon />
                     </div>
                     <div className="col-md-10 col-lg-10">
                         <Switch>
                             <Route path={"/"} render={(props) => <Home {...props} getPageTitle={this.getPageTitle} />} exact></Route>
                             <Route path={"/threejsobjloader/:model"} render={(props) => <ThreeOBJLoader {...props} getPageTitle={this.getPageTitle} />} />
-                            <Route path={"/babylonjsobjloader"} render={(props) => <BabylonOBJLoader {...props} getPageTitle={this.getPageTitle} />} />
+                            <Route path={"/babylonjsobjloader/:model"} render={(props) => <BabylonOBJLoader {...props} getPageTitle={this.getPageTitle} />} />
                             <Route path={"/home"} render={(props) => <Home {...props} getPageTitle={this.getPageTitle} />} />
                         </Switch>
                     </div>
